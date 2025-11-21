@@ -1,0 +1,22 @@
+{
+  "name": "Zecure - Sistema de Manutenção",
+  "short_name": "Zecure",
+  "description": "Sistema de gestão de ordens de serviço",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#39FF14",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/zecurelogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/zecurelogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

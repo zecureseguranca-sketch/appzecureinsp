@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Zecure">
+    <meta name="application-name" content="Zecure">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <title>Zecure - Soluções em Segurança</title>
+    <meta name="description" content="Sistema de gestão de ordens de serviço para condomínios">
+    <meta name="keywords" content="segurança, manutenção, condomínios, ordem de serviço">
+    
+    <!-- Manifest PWA -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#39FF14">
+    <meta name="msapplication-TileColor" content="#0d0d0d">
+    <meta name="msapplication-navbutton-color" content="#39FF14">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+    
+    <!-- Apple Splash Screens -->
+    <link rel="apple-touch-startup-image" href="/splash/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1668x2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1536x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1668x2224.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1620x2160.png" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/splash/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-neon: #39FF14;
+            --primary-dark: #2ECC11;
+            --accent-green: #1AFF00;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0d0d0d;
+            --text-dark: #333333;
+            --text-light: #FFFFFF;
+            --grey-light: #F5F5F5;
+            --grey-medium: #E0E0E0;
+            --grey-dark: #424242;
+            --error-red: #FF3B30;
+            --warning-orange: #FF9500;
+            --info-blue: #007AFF;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.25);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--grey-light);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Modo standalone (app instalado) */
+        body.standalone-mode {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        #app {
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--text-light);
+            height: 100vh;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* SCROLL FIX - Telas com display block */
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            background: var(--text-light);
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            color: var(--text-light);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary-neon);
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header .back-button {
+            background: none;
+            border: none;
+            color: var(--primary-neon);
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            display: none;
+        }
+
+        .header .back-button.visible {
+            display: flex;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        .header-logo {
+            height: 32px;
+            width: auto;
+        }
+
+        .header .logout-button {
+            background: var(--primary-neon);
+            border: none;
+            color: var(--dark-bg);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all var(--transition);
+            text-transform: uppercase;
+        }
+
+        .header .logout-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary-neon);
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #login-screen {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-y: auto;
+        }
+
+        .login-logo-container {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-logo {
+            width: 200px;
+            height: auto;
+            filter: drop-shadow(0 0 30px var(--primary-neon));
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { filter: drop-shadow(0 0 30px var(--primary-neon)); }
+            50% { filter: drop-shadow(0 0 50px var(--primary-neon)); }
+        }
+
+        .login-tagline {
+            color: var(--primary-neon);
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .login-form {
+            background: var(--text-light);
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 380px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--grey-medium);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all var(--transition);
+            background: var(--text-light);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 0 4px rgba(57, 255, 20, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-neon) 0%, var(--accent-green) 100%);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition);
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(57, 255, 20, 0.3);
+        }
+
+        .button.secondary {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            color: var(--text-light);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            border-radius: 16px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-neon) 0%, var(--accent-green) 100%);
+            transform: translateY(4px);
+            transition: transform var(--transition);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item:hover::before {
+            transform: translateY(0);
+        }
+
+        .menu-item .material-icons {
+            font-size: 48px;
+            color: var(--primary-neon);
+        }
+
+        .menu-item-text {
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .card {
+            background: var(--text-light);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-neon);
+            transition: all var(--transition);
+        }
+
+        .card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-body {
+            font-size: 14px;
+            color: var(--grey-dark);
+            line-height: 1.6;
+        }
+
+        .card-body p {
+            margin-bottom: 8px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .card-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .card-actions button:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-edit {
+            background: var(--primary-neon);
+            color: var(--dark-bg);
+        }
+
+        .btn-delete {
+            background: var(--error-red);
+            color: var(--text-light);
+        }
+
+        .btn-view {
+            background: var(--info-blue);
+            color: var(--text-light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge.pendente { background: var(--warning-orange); color: var(--text-light); }
+        .badge.em_andamento { background: var(--primary-neon); color: var(--dark-bg); }
+        .badge.concluida { background: var(--info-blue); color: var(--text-light); }
+        .badge.preventiva { background: var(--info-blue); color: var(--text-light); }
+        .badge.corretiva { background: var(--error-red); color: var(--text-light); }
+        .badge.baixa { background: var(--grey-medium); color: var(--text-dark); }
+        .badge.media { background: var(--warning-orange); color: var(--text-light); }
+        .badge.alta, .badge.urgente { background: var(--error-red); color: var(--text-light); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--text-light);
+            border-radius: 20px;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 450px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: modalAppear 0.3s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-neon);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--grey-dark);
+            transition: color var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--error-red);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            border-radius: 16px;
+            padding: 24px 18px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-neon) 0%, var(--accent-green) 100%);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary-neon);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-neon);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .feedback {
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .feedback.success {
+            background: rgba(57, 255, 20, 0.15);
+            color: var(--primary-neon);
+            border: 2px solid var(--primary-neon);
+        }
+
+        .feedback.error {
+            background: rgba(255, 59, 48, 0.15);
+            color: var(--error-red);
+            border: 2px solid var(--error-red);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-state .material-icons {
+            font-size: 80px;
+            color: var(--primary-neon);
+            opacity: 0.3;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            color: var(--grey-dark);
+            margin-top: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 30px 0 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-neon);
+        }
+
+        .camera-container {
+            border: 2px dashed var(--grey-medium);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all var(--transition);
+        }
+
+        .camera-container:hover {
+            border-color: var(--primary-neon);
+            background: rgba(57, 255, 20, 0.05);
+        }
+
+        .camera-container .material-icons {
+            font-size: 64px;
+            color: var(--primary-neon);
+            opacity: 0.5;
+        }
+
+        .photo-preview {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 10px 0;
+        }
+
+        .signature-pad {
+            width: 100%;
+            height: 180px;
+            border: 2px solid var(--grey-medium);
+            border-radius: 16px;
+            background: var(--text-light);
+            touch-action: none;
+            cursor: crosshair;
+            margin-bottom: 16px;
+        }
+
+        .signature-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .signature-controls button {
+            flex: 1;
+            padding: 12px;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .signature-controls button:hover {
+            background: var(--darker-bg);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: var(--grey-light);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all var(--transition);
+        }
+
+        .checklist-item:hover {
+            background: rgba(57, 255, 20, 0.1);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            cursor: pointer;
+            accent-color: var(--primary-neon);
+        }
+
+        .checklist-item label {
+            flex: 1;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .peca-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px;
+            background: var(--grey-light);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--primary-neon);
+        }
+
+        .peca-info {
+            flex: 1;
+        }
+
+        .peca-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .peca-details {
+            font-size: 13px;
+            color: var(--grey-dark);
+        }
+
+        .peca-remove {
+            background: var(--error-red);
+            color: var(--text-light);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all var(--transition);
+        }
+
+        .peca-remove:hover {
+            transform: rotate(90deg);
+        }
+
+        .notification-popup {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 99999;
+            transform: translateX(400px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 380px;
+            width: calc(100% - 40px);
+        }
+
+        .notification-popup.show {
+            transform: translateX(0);
+        }
+
+        .notification-popup-content {
+            background: var(--text-light);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border-left: 4px solid var(--primary-neon);
+        }
+
+        .notification-popup-content.success {
+            border-left-color: var(--primary-neon);
+        }
+
+        .notification-popup-content.warning {
+            border-left-color: var(--warning-orange);
+        }
+
+        .notification-popup-content.info {
+            border-left-color: var(--info-blue);
+        }
+
+        .notification-popup-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--grey-light);
+            border-bottom: 1px solid var(--grey-medium);
+        }
+
+        .notification-icon {
+            font-size: 24px;
+            color: var(--primary-neon);
+        }
+
+        .notification-popup-content.success .notification-icon {
+            color: var(--primary-neon);
+        }
+
+        .notification-popup-content.warning .notification-icon {
+            color: var(--warning-orange);
+        }
+
+        .notification-popup-content.info .notification-icon {
+            color: var(--info-blue);
+        }
+
+        .notification-popup-title {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .notification-popup-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--grey-dark);
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .notification-popup-close:hover {
+            color: var(--error-red);
+        }
+
+        .notification-popup-body {
+            padding: 16px;
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .notification-popup-action {
+            width: calc(100% - 32px);
+            margin: 0 16px 16px;
+            padding: 12px;
+            background: var(--primary-neon);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .notification-popup-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(57, 255, 20, 0.3);
+        }
+
+        /* Banner de Instalação */
+        #install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #39FF14, #1AFF00);
+            padding: 16px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            z-index: 10000;
+            display: none;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .install-banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .install-banner-text {
+            flex: 1;
+        }
+
+        .install-banner-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: #0d0d0d;
+            margin-bottom: 4px;
+        }
+
+        .install-banner-subtitle {
+            font-size: 13px;
+            color: #1a1a1a;
+        }
+
+        .install-banner-button {
+            background: #0d0d0d;
+            color: #39FF14;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .install-banner-button:hover {
+            transform: scale(1.05);
+        }
+
+        .install-banner-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #0d0d0d;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .notification-popup {
+                top: 70px;
+                right: 10px;
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Banner de Instalação PWA -->
+    <div id="install-banner">
+        <div class="install-banner-content">
+            <div class="install-banner-text">
+                <div class="install-banner-title">Instalar Zecure</div>
+                <div class="install-banner-subtitle">Acesso rápido e funciona offline</div>
+            </div>
+            <button class="install-banner-button" onclick="installApp()">INSTALAR</button>
+            <button class="install-banner-close" onclick="closeInstallBanner()">×</button>
+        </div>
+    </div>
+
+    <div id="app">
+        <!-- LOGIN -->
+        <div id="login-screen" class="screen active">
+            <div class="login-container">
+                <div class="login-logo-container">
+                    <img src="zecurelogo.png" alt="Zecure Logo" class="login-logo">
+                    <div class="login-tagline">SOLUÇÕES EM SEGURANÇA</div>
+                </div>
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label>Usuário</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="button">Entrar</button>
+                    <div id="login-feedback" class="feedback"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MENU ADMIN -->
+        <div id="admin-menu-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <img src="zecurelogo.png" alt="Logo" class="header-logo">
+                    <span class="header-title">Admin</span>
+                </div>
+                <button class="logout-button" onclick="logout()">Sair</button>
+            </div>
+            <div class="content">
+                <div class="menu-grid">
+                    <div class="menu-item" onclick="showScreen('dashboard-screen')">
+                        <span class="material-icons">dashboard</span>
+                        <div class="menu-item-text">Dashboard</div>
+                    </div>
+                    <div class="menu-item" onclick="showScreen('condos-screen')">
+                        <span class="material-icons">apartment</span>
+                        <div class="menu-item-text">Condomínios</div>
+                    </div>
+                    <div class="menu-item" onclick="showScreen('tecnicos-screen')">
+                        <span class="material-icons">engineering</span>
+                        <div class="menu-item-text">Técnicos</div>
+                    </div>
+                    <div class="menu-item" onclick="showScreen('equipments-screen')">
+                        <span class="material-icons">construction</span>
+                        <div class="menu-item-text">Equipamentos</div>
+                    </div>
+                    <div class="menu-item" onclick="showScreen('os-list-screen')">
+                        <span class="material-icons">assignment</span>
+                        <div class="menu-item-text">Ordens de Serviço</div>
+                    </div>
+                    <div class="menu-item" onclick="showScreen('relatorios-screen')">
+                        <span class="material-icons">assessment</span>
+                        <div class="menu-item-text">Relatórios</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <button class="back-button visible" onclick="showScreen('admin-menu-screen')">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <span class="header-title">Dashboard</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="stats-grid" id="stats-grid"></div>
+                <div class="section-title">OS Pendentes</div>
+                <div id="dashboard-os-pendentes"></div>
+            </div>
+        </div>
+
+        <!-- CONDOMINIOS -->
+        <div id="condos-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <button class="back-button visible" onclick="showScreen('admin-menu-screen')">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <span class="header-title">Condomínios</span>
+                </div>
+            </div>
+            <div class="content">
+                <button class="button" onclick="openModal('add-condo-modal')">+ Adicionar</button>
+                <div id="condos-list"></div>
+            </div>
+        </div>
+
+        <!-- TECNICOS -->
+        <div id="tecnicos-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <button class="back-button visible" onclick="showScreen('admin-menu-screen')">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <span class="header-title">Técnicos</span>
+                </div>
+            </div>
+            <div class="content">
+                <button class="button" onclick="openModal('add-tecnico-modal')">+ Adicionar</button>
+                <div id="tecnicos-list"></div>
+            </div>
+        </div>
+
+        <!-- EQUIPAMENTOS -->
+        <div id="equipments-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <button class="back-button visible" onclick="showScreen('admin-menu-screen')">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <span class="header-title">Equipamentos</span>
+                </div>
+            </div>
+            <div class="content">
+                <button class="button" onclick="openModal('add-equipment-modal')">+ Cadastrar</button>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Filtrar por Condomínio</label>
+                    <select id="filter-equip-condo" onchange="loadEquipments()">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div id="equipments-list"></div>
+            </div>
+        </div>
+
+        <!-- OS ADMIN -->
+        <div id="os-list-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <button class="back-button visible" onclick="showScreen('admin-menu-screen')">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <span class="header-title">Ordens de Serviço</span>
+                </div>
+            </div>
+            <div class="content">
+                <button class="button" onclick="openModal('create-os-modal')">+ Criar OS</button>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Filtrar por Status</label>
+                    <select id="filter-os-status" onchange="loadOSList()">
+                        <option value="">Todas</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="em_andamento">Em Andamento</option>
+                        <option value="concluida">Concluída</option>
+                    </select>
+                </div>
+                <div id="os-list"></div>
+            </div>
+        </div>
+
+        <!-- RELATORIOS -->
+        <div id="relatorios-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <button class="back-button visible" onclick="showScreen('admin-menu-screen')">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <span class="header-title">Relatórios</span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="menu-grid">
+                    <div class="menu-item" onclick="gerarRelatorioMensal()">
+                        <span class="material-icons">calendar_month</span>
+                        <div class="menu-item-text">Mensal</div>
+                    </div>
+                    <div class="menu-item" onclick="alert('Em desenvolvimento')">
+                        <span class="material-icons">apartment</span>
+                        <div class="menu-item-text">Por Condomínio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENU TECNICO -->
+        <div id="tecnico-menu-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <img src="zecurelogo.png" alt="Logo" class="header-logo">
+                    <span class="header-title">Técnico</span>
+                </div>
+                <button class="logout-button" onclick="logout()">Sair</button>
+            </div>
+            <div class="content">
+                <div class="form-group">
+                    <label>Filtrar por Status</label>
+                    <select id="filter-tecnico-os" onchange="loadTecnicoOS()">
+                        <option value="">Todas</option>
+                        <option value="pendente">Pendentes</option>
+                        <option value="em_andamento">Em Andamento</option>
+                        <option value="concluida">Concluídas</option>
+                    </select>
+                </div>
+                <div id="tecnico-os-list"></div>
+            </div>
+        </div>
+
+        <!-- EXECUTAR OS -->
+        <div id="executar-os-screen" class="screen">
+            <div class="header">
+                <div class="header-left">
+                    <button class="back-button visible" onclick="showScreen('tecnico-menu-screen')">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <span class="header-title">Executar OS</span>
+                </div>
+            </div>
+            <div class="content">
+                <div id="os-info-card"></div>
+                <form id="executar-os-form">
+                    <div class="section-title">Checklist</div>
+                    <div id="os-checklist"></div>
+                    
+                    <div class="section-title">Fotos</div>
+                    <div class="camera-container" onclick="document.getElementById('os-photo-input').click()">
+                        <input type="file" id="os-photo-input" accept="image/*" multiple style="display:none">
+                        <div id="os-photos-preview"></div>
+                        <div id="os-photo-placeholder">
+                            <span class="material-icons">add_a_photo</span>
+                            <p>Adicionar Fotos</p>
+                        </div>
+                    </div>
+
+                    <div class="section-title">Peças Utilizadas</div>
+                    <div id="pecas-list"></div>
+                    <button type="button" class="button secondary" onclick="openModal('add-peca-modal')">+ Adicionar Peça</button>
+
+                    <div class="section-title">Observações</div>
+                    <div class="form-group">
+                        <textarea id="os-observacoes" placeholder="Digite observações sobre o serviço..."></textarea>
+                    </div>
+
+                    <div class="section-title">Status da OS</div>
+                    <div class="form-group">
+                        <label>Definir Status</label>
+                        <select id="os-status-final" required>
+                            <option value="concluida" selected>Concluída</option>
+                            <option value="em_andamento">Em Andamento (pausar para continuar depois)</option>
+                        </select>
+                    </div>
+
+                    <div class="section-title">Assinatura do Técnico</div>
+                    <canvas id="os-signature-pad" class="signature-pad" width="400" height="180"></canvas>
+                    <div class="signature-controls">
+                        <button type="button" onclick="clearOSSignature()">Limpar Assinatura</button>
+                    </div>
+
+                    <button type="submit" class="button">Salvar Ordem de Serviço</button>
+                    <div id="os-feedback" class="feedback"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAIS -->
+        
+        <!-- Modal Adicionar Condomínio -->
+        <div id="add-condo-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Adicionar Condomínio</div>
+                    <button class="modal-close" onclick="closeModal('add-condo-modal')">×</button>
+                </div>
+                <form id="add-condo-form">
+                    <div class="form-group">
+                        <label>Nome do Condomínio</label>
+                        <input type="text" id="condo-name" placeholder="Ex: Residencial Jardins" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Endereço</label>
+                        <input type="text" id="condo-address" placeholder="Ex: Rua das Flores, 123">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="tel" id="condo-phone" placeholder="Ex: (11) 98765-4321">
+                    </div>
+                    <button type="submit" class="button">Salvar Condomínio</button>
+                    <div id="condo-feedback" class="feedback"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Adicionar Técnico -->
+        <div id="add-tecnico-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Adicionar Técnico</div>
+                    <button class="modal-close" onclick="closeModal('add-tecnico-modal')">×</button>
+                </div>
+                <form id="add-tecnico-form">
+                    <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" id="tecnico-nome" placeholder="Ex: João Silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="tecnico-email" placeholder="Ex: joao@zecure.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="tel" id="tecnico-telefone" placeholder="Ex: (11) 98765-4321">
+                    </div>
+                    <div class="form-group">
+                        <label>Usuário (Login)</label>
+                        <input type="text" id="tecnico-username" placeholder="Ex: joao.silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="tecnico-password" placeholder="Mínimo 6 caracteres" required>
+                    </div>
+                    <button type="submit" class="button">Salvar Técnico</button>
+                    <div id="tecnico-feedback" class="feedback"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Cadastrar Equipamento -->
+        <div id="add-equipment-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Cadastrar Equipamento</div>
+                    <button class="modal-close" onclick="closeModal('add-equipment-modal')">×</button>
+                </div>
+                <form id="add-equipment-form">
+                    <div class="form-group">
+                        <label>Condomínio</label>
+                        <select id="equipment-condominio" required>
+                            <option value="">Selecione um condomínio...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nome do Equipamento</label>
+                        <input type="text" id="equipment-name" placeholder="Ex: Gerador Principal" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Equipamento</label>
+                        <select id="equipment-type" required>
+                            <option value="">Selecione o tipo...</option>
+                            <option value="gerador">Gerador</option>
+                            <option value="elevador">Elevador</option>
+                            <option value="bomba">Bomba d'água</option>
+                            <option value="portao">Portão Automático</option>
+                            <option value="camera">Câmera de Segurança</option>
+                            <option value="alarme">Sistema de Alarme</option>
+                            <option value="interfone">Interfone</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Localização</label>
+                        <input type="text" id="equipment-location" placeholder="Ex: Subsolo - Sala de Máquinas" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Modelo</label>
+                        <input type="text" id="equipment-model" placeholder="Ex: Caterpillar C15">
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Série</label>
+                        <input type="text" id="equipment-serial" placeholder="Ex: SN123456789">
+                    </div>
+                    <button type="submit" class="button">Salvar Equipamento</button>
+                    <div id="equipment-feedback" class="feedback"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Criar OS -->
+        <div id="create-os-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Criar Ordem de Serviço</div>
+                    <button class="modal-close" onclick="closeModal('create-os-modal')">×</button>
+                </div>
+                <form id="create-os-form">
+                    <div class="form-group">
+                        <label>Condomínio</label>
+                        <select id="os-condominio" required onchange="loadEquipamentosOS()">
+                            <option value="">Selecione um condomínio...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Equipamento</label>
+                        <select id="os-equipamento" required>
+                            <option value="">Primeiro selecione um condomínio...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Manutenção</label>
+                        <select id="os-tipo" required>
+                            <option value="preventiva">Preventiva</option>
+                            <option value="corretiva">Corretiva</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Prioridade</label>
+                        <select id="os-prioridade" required>
+                            <option value="baixa">Baixa</option>
+                            <option value="media" selected>Média</option>
+                            <option value="alta">Alta</option>
+                            <option value="urgente">Urgente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Técnico Responsável</label>
+                        <select id="os-tecnico" required>
+                            <option value="">Selecione um técnico...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição do Problema</label>
+                        <textarea id="os-descricao" placeholder="Descreva o problema ou serviço a ser realizado..." required></textarea>
+                    </div>
+                    <button type="submit" class="button">Criar Ordem de Serviço</button>
+                    <div id="create-os-feedback" class="feedback"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Adicionar Peça -->
+        <div id="add-peca-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Adicionar Peça Utilizada</div>
+                    <button class="modal-close" onclick="closeModal('add-peca-modal')">×</button>
+                </div>
+                <form id="add-peca-form">
+                    <div class="form-group">
+                        <label>Nome da Peça</label>
+                        <input type="text" id="peca-nome" placeholder="Ex: Filtro de óleo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantidade</label>
+                        <input type="text" id="peca-quantidade" placeholder="Ex: 2 unidades" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Custo (R$)</label>
+                        <input type="number" id="peca-custo" step="0.01" min="0" placeholder="Ex: 150.00">
+                    </div>
+                    <button type="submit" class="button">Adicionar Peça</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Detalhes da OS -->
+        <div id="os-detail-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Detalhes da Ordem de Serviço</div>
+                    <button class="modal-close" onclick="closeModal('os-detail-modal')">×</button>
+                </div>
+                <div id="os-detail-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts PWA -->
+    <script>
+        // Variável global para armazenar o prompt de instalação
+        let deferredPrompt;
+
+        // Registro do Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('✅ Service Worker registrado com sucesso:', registration.scope);
+                        
+                        // Verifica atualizações a cada 1 hora
+                        setInterval(() => {
+                            registration.update();
+                        }, 3600000);
+
+                        // Detecta quando há uma nova versão disponível
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // Nova versão disponível
+                                    if (confirm('Nova versão disponível! Atualizar agora?')) {
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('❌ Erro ao registrar Service Worker:', error);
+                    });
+            });
+        }
+
+        // Detecta quando o app está instalado
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ PWA instalado com sucesso!');
+            closeInstallBanner();
+        });
+
+        // Captura o evento de instalação
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('💡 Prompt de instalação disponível');
+            
+            // Exibe o banner de instalação
+            document.getElementById('install-banner').style.display = 'block';
+        });
+
+        // Função para instalar o app programaticamente
+        async function installApp() {
+            if (!deferredPrompt) {
+                alert('Instalação não disponível neste momento. Tente adicionar à tela inicial manualmente.');
+                return;
+            }
+
+            // Mostra o prompt de instalação
+            deferredPrompt.prompt();
+            
+            // Aguarda a escolha do usuário
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`Usuário ${outcome === 'accepted' ? 'aceitou' : 'recusou'} instalar o app`);
+            
+            if (outcome === 'accepted') {
+                closeInstallBanner();
+            }
+            
+            // Limpa o prompt
+            deferredPrompt = null;
+        }
+
+        // Função para fechar o banner
+        function closeInstallBanner() {
+            document.getElementById('install-banner').style.display = 'none';
+        }
+
+        // Detecta se está rodando em modo standalone (instalado)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            console.log('✅ App está rodando em modo standalone (instalado)');
+            document.body.classList.add('standalone-mode');
+        }
+
+        // Previne zoom indesejado no iOS
+        document.addEventListener('gesturestart', e => e.preventDefault());
+        document.addEventListener('gesturechange', e => e.preventDefault());
+        document.addEventListener('gestureend', e => e.preventDefault());
+
+        // Previne pull-to-refresh no mobile
+        let touchStartY = 0;
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: false });
+
+        document.addEventListener('touchmove', e => {
+            const touchY = e.touches[0].clientY;
+            const touchDiff = touchY - touchStartY;
+            
+            if (touchDiff > 0 && window.scrollY === 0) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+
+    <!-- Script Principal do App (TODO SEU JAVASCRIPT) -->
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxvlKfyb8_d1o7TBCfKLdpGN5TVLm2SrDXqqQEIy2EuwC9BKaCvIrY4aCkU2-FYPT77EA/exec';
+        const AUTH_TOKEN = 'zecure_2025_secret_token_12345';
+
+        let usuarios = [];
+        let condos = [];
+        let currentUser = null;
+        let currentOS = null;
+        let tempPecas = [];
+        let osPhotos = [];
+        let hasOSSignature = false;
+        const dpi = window.devicePixelRatio || 1;
+
+        let previousOSState = {};
+        let notificationPermission = 'default';
+        let audioContext = null;
+        let notificationSound = null;
+        let syncInterval = null;
+        let lastSyncTime = null;
+
+        // COMPACTAÇÃO DE IMAGENS
+        async function dataUrlToImage(dataUrl) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = dataUrl;
+            });
+        }
+
+        function drawCompressed(img, maxW = 1024, quality = 0.7) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            let w = img.naturalWidth || img.width;
+            let h = img.naturalHeight || img.height;
+
+            if (w > maxW) {
+                const ratio = maxW / w;
+                w = maxW;
+                h = Math.round(h * ratio);
+            }
+
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0, w, h);
+            return canvas.toDataURL('image/jpeg', quality);
+        }
+
+        async function compactImage(dataUrl, maxW = 1024, quality = 0.7) {
+            try {
+                const img = await dataUrlToImage(dataUrl);
+                return drawCompressed(img, maxW, quality);
+            } catch {
+                return dataUrl;
+            }
+        }
+
+        async function compactAllImages(list) {
+            const out = [];
+            for (const item of list) {
+                if ((item || '').length < 150000) {
+                    out.push(item);
+                } else {
+                    const compressed = await compactImage(item, 1000, 0.65);
+                    out.push(compressed);
+                }
+            }
+            return out;
+        }
+
+        async function compactSignature(canvas, maxW = 600, quality = 0.7) {
+            if (!canvas) return '';
+            const tempCanvas = document.createElement('canvas');
+            const ctx = tempCanvas.getContext('2d');
+            let w = canvas.width;
+            let h = canvas.height;
+
+            if (w > 2000) {
+                const ratio = 2000 / w;
+                w = 2000;
+                h = Math.round(h * ratio);
+            }
+
+            tempCanvas.width = w;
+            tempCanvas.height = h;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(canvas, 0, 0, w, h);
+
+            const imgUrl = tempCanvas.toDataURL('image/png');
+            const img = await dataUrlToImage(imgUrl);
+            return drawCompressed(img, maxW, quality);
+        }
+
+        // API
+        function apiRequest(action, params = {}, retries = 2) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'cb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                const timeout = setTimeout(() => {
+                    cleanup();
+                    if (retries > 0) {
+                        apiRequest(action, params, retries - 1).then(resolve).catch(reject);
+                    } else {
+                        reject(new Error('Timeout'));
+                    }
+                }, 15000);
+                
+                window[callbackName] = response => {
+                    clearTimeout(timeout);
+                    cleanup();
+                    resolve(response);
+                };
+                
+                const cleanup = () => {
+                    delete window[callbackName];
+                    if (script && script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                };
+                
+                const query = new URLSearchParams({
+                    callback: callbackName,
+                    action,
+                    token: AUTH_TOKEN,
+                    ...params
+                });
+                
+                const script = document.createElement('script');
+                script.src = `${API_URL}?${query}`;
+                script.onerror = () => {
+                    clearTimeout(timeout);
+                    cleanup();
+                    if (retries > 0) {
+                        apiRequest(action, params, retries - 1).then(resolve).catch(reject);
+                    } else {
+                        reject(new Error('Erro de conexão'));
+                    }
+                };
+                
+                document.body.appendChild(script);
+            });
+        }
+
+        function apiPost(action, data = {}) {
+            return apiRequest(action, {
+                payload: JSON.stringify(data)
+            });
+        }
+
+        // POST JSON via Fetch (para payloads grandes) - FUNÇÃO MANTIDA MAS NÃO USADA PARA STATUS
+        async function apiPostJSON(action, data) {
+            const url = `${API_URL}?action=${encodeURIComponent(action)}&token=${encodeURIComponent(AUTH_TOKEN)}`;
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const text = await res.text();
+            try { return JSON.parse(text); } catch { return {success:false, error:'Resposta inválida'}; }
+        }
+
+        function showLoading() {
+            document.getElementById('loading').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('active');
+        }
+
+        function showFeedback(el, msg, type) {
+            if (!el) return;
+            el.textContent = msg;
+            el.className = `feedback ${type}`;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 4000);
+        }
+
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const screen = document.getElementById(id);
+            if (screen) {
+                screen.classList.add('active');
+                
+                if (id === 'dashboard-screen') loadDashboard();
+                if (id === 'condos-screen') loadCondos();
+                if (id === 'tecnicos-screen') loadTecnicos();
+                if (id === 'equipments-screen') loadEquipments();
+                if (id === 'os-list-screen') loadOSList();
+                if (id === 'tecnico-menu-screen') loadTecnicoOS();
+            }
+        }
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('active');
+                
+                if (id === 'create-os-modal') {
+                    loadCondosForOS();
+                    loadTecnicosForOS();
+                }
+                
+                if (id === 'add-equipment-modal') {
+                    loadCondosForEquipment();
+                }
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        function logout() {
+            stopAutoSync();
+            currentUser = null;
+            usuarios = [];
+            condos = [];
+            showScreen('login-screen');
+        }
+
+        function getTecnicos() {
+            return usuarios.filter(u => u.role === 'tecnico' && u.ativo);
+        }
+
+        function getAllOS() {
+            let all = [];
+            condos.forEach(condo => {
+                if (condo.ordens && Array.isArray(condo.ordens)) {
+                    all.push(...condo.ordens);
+                }
+            });
+            return all;
+        }
+
+        function getOSById(osId) {
+            for (let condo of condos) {
+                if (condo.ordens && Array.isArray(condo.ordens)) {
+                    const os = condo.ordens.find(o => o.id === osId);
+                    if (os) return { os, condo };
+                }
+            }
+            return null;
+        }
+
+        function formatStatus(status) {
+            const map = {
+                pendente: 'Pendente',
+                em_andamento: 'Em Andamento',
+                concluida: 'Concluída'
+            };
+            return map[status] || status;
+        }
+
+        function gerarChecklistPadrao(tipo) {
+            const checklists = {
+                gerador: [
+                    { item: 'Verificar nível de óleo', ok: false },
+                    { item: 'Verificar nível de combustível', ok: false },
+                    { item: 'Testar partida automática', ok: false },
+                    { item: 'Verificar sistema de arrefecimento', ok: false }
+                ],
+                elevador: [
+                    { item: 'Testar funcionamento geral', ok: false },
+                    { item: 'Verificar portas e sensores', ok: false },
+                    { item: 'Testar sistema de emergência', ok: false }
+                ],
+                bomba: [
+                    { item: 'Testar acionamento', ok: false },
+                    { item: 'Verificar vazamentos', ok: false },
+                    { item: 'Verificar pressão', ok: false }
+                ],
+                portao: [
+                    { item: 'Testar abertura e fechamento', ok: false },
+                    { item: 'Verificar sensores de segurança', ok: false },
+                    { item: 'Lubrificar peças móveis', ok: false }
+                ],
+                camera: [
+                    { item: 'Verificar qualidade da imagem', ok: false },
+                    { item: 'Testar gravação', ok: false },
+                    { item: 'Limpar lentes', ok: false }
+                ],
+                alarme: [
+                    { item: 'Testar sensores', ok: false },
+                    { item: 'Verificar bateria', ok: false },
+                    { item: 'Testar sirenes', ok: false }
+                ],
+                interfone: [
+                    { item: 'Testar áudio', ok: false },
+                    { item: 'Verificar vídeo', ok: false },
+                    { item: 'Testar abertura remota', ok: false }
+                ],
+                geral: [
+                    { item: 'Inspeção visual completa', ok: false },
+                    { item: 'Teste de funcionamento', ok: false },
+                    { item: 'Limpeza geral', ok: false }
+                ]
+            };
+            return checklists[tipo.toLowerCase()] || checklists.geral;
+        }
+
+        // NOTIFICAÇÕES
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.register('/sw.js');
+                    console.log('✅ Service Worker registrado');
+                    return registration;
+                } catch (error) {
+                    console.error('❌ Erro ao registrar Service Worker:', error);
+                }
+            }
+        }
+
+        async function requestNotificationPermission() {
+            if (!('Notification' in window)) {
+                return false;
+            }
+
+            if (Notification.permission === 'granted') {
+                notificationPermission = 'granted';
+                return true;
+            }
+
+            if (Notification.permission !== 'denied') {
+                const permission = await Notification.requestPermission();
+                notificationPermission = permission;
+                
+                if (permission === 'granted') {
+                    console.log('✅ Permissão de notificação concedida');
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function initNotificationSound() {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            notificationSound = () => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+                
+                setTimeout(() => {
+                    const osc2 = audioContext.createOscillator();
+                    const gain2 = audioContext.createGain();
+                    
+                    osc2.connect(gain2);
+                    gain2.connect(audioContext.destination);
+                    
+                    osc2.frequency.setValueAtTime(1000, audioContext.currentTime);
+                    gain2.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    
+                    osc2.start(audioContext.currentTime);
+                    osc2.stop(audioContext.currentTime + 0.3);
+                }, 150);
+            };
+        }
+
+        function vibrate() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate([200, 100, 200, 100, 200]);
+            }
+        }
+
+        function showNotificationPopup(title, message, type = 'info', osId = null) {
+            const popup = document.createElement('div');
+            popup.className = 'notification-popup';
+            popup.innerHTML = `
+                <div class="notification-popup-content ${type}">
+                    <div class="notification-popup-header">
+                        <span class="material-icons notification-icon">${
+                            type === 'success' ? 'check_circle' : 
+                            type === 'warning' ? 'warning' : 
+                            type === 'info' ? 'info' : 'notifications'
+                        }</span>
+                        <div class="notification-popup-title">${title}</div>
+                        <button class="notification-popup-close" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
+                    </div>
+                    <div class="notification-popup-body">${message}</div>
+                    ${osId ? `<button class="notification-popup-action" onclick="viewOSFromNotification('${osId}')">Ver Detalhes</button>` : ''}
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            setTimeout(() => popup.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+                setTimeout(() => popup.remove(), 300);
+            }, 10000);
+            
+            return popup;
+        }
+
+        window.viewOSFromNotification = function(osId) {
+            const result = getOSById(osId);
+            if (result) {
+                viewOSDetail(osId);
+            }
+        };
+
+        function showSystemNotification(title, body, osId = null) {
+            if (notificationPermission !== 'granted') return;
+
+            const options = {
+                body: body,
+                icon: '/zecurelogo.png',
+                badge: '/zecurelogo.png',
+                vibrate: [200, 100, 200, 100, 200],
+                tag: 'zecure-os-' + (osId || Date.now()),
+                requireInteraction: true,
+                silent: false
+            };
+
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.ready.then(registration => {
+                    registration.showNotification(title, options);
+                });
+            } else {
+                const notification = new Notification(title, options);
+                
+                notification.onclick = function(event) {
+                    event.preventDefault();
+                    window.focus();
+                    notification.close();
+                    
+                    if (osId) {
+                        viewOSFromNotification(osId);
+                    }
+                };
+            }
+        }
+
+        function detectOSChanges(newCondos) {
+            const changes = [];
+            
+            newCondos.forEach(condo => {
+                if (!condo.ordens) return;
+                
+                condo.ordens.forEach(os => {
+                    const oldOS = previousOSState[os.id];
+                    
+                    if (!oldOS) {
+                        changes.push({
+                            type: 'created',
+                            os: os,
+                            condo: condo
+                        });
+                    } else {
+                        if (oldOS.status !== os.status) {
+                            changes.push({
+                                type: 'status_changed',
+                                os: os,
+                                condo: condo,
+                                oldStatus: oldOS.status,
+                                newStatus: os.status
+                            });
+                        }
+                        
+                        if (os.status === 'concluida' && oldOS.status !== 'concluida') {
+                            changes.push({
+                                type: 'completed',
+                                os: os,
+                                condo: condo
+                            });
+                        }
+                    }
+                });
+            });
+            
+            return changes;
+        }
+
+        function saveOSState(condos) {
+            previousOSState = {};
+            condos.forEach(condo => {
+                if (condo.ordens) {
+                    condo.ordens.forEach(os => {
+                        previousOSState[os.id] = {
+                            id: os.id,
+                            status: os.status,
+                            numero: os.numero
+                        };
+                    });
+                }
+            });
+        }
+
+        function processNotifications(changes) {
+            if (changes.length === 0) return;
+            
+            console.log('🔔 Mudanças detectadas:', changes);
+            
+            changes.forEach(change => {
+                let title = '';
+                let message = '';
+                let type = 'info';
+                
+                switch (change.type) {
+                    case 'created':
+                        title = '📋 Nova OS Criada';
+                        message = `${change.os.numero} - ${change.condo.name}\n${change.os.equipamentoNome}`;
+                        type = 'info';
+                        break;
+                        
+                    case 'status_changed':
+                        const statusMap = {
+                            'pendente': 'Pendente',
+                            'em_andamento': 'Em Andamento',
+                            'concluida': 'Concluída'
+                        };
+                        title = '🔄 OS Atualizada';
+                        message = `${change.os.numero}\nStatus: ${statusMap[change.oldStatus]} → ${statusMap[change.newStatus]}`;
+                        type = 'warning';
+                        break;
+                        
+                    case 'completed':
+                        title = '✅ OS Concluída';
+                        message = `${change.os.numero} - ${change.condo.name}\nTécnico: ${change.os.tecnicoNome}`;
+                        type = 'success';
+                        break;
+                }
+                
+                if (notificationSound) {
+                    notificationSound();
+                }
+                
+                vibrate();
+                showNotificationPopup(title, message, type, change.os.id);
+                showSystemNotification(title, message, change.os.id);
+            });
+        }
+
+        // SINCRONIZAÇÃO
+        async function syncData() {
+            try {
+                console.log('🔄 Sincronizando dados...');
+                
+                const [usuariosResult, condosResult] = await Promise.all([
+                    apiRequest('getUsuarios'),
+                    apiRequest('getCondominios')
+                ]);
+
+                usuarios = usuariosResult.success ? usuariosResult.usuarios : [];
+                const newCondos = condosResult.success ? condosResult.condominios : [];
+
+                const promises = [];
+                newCondos.forEach(condo => {
+                    promises.push(
+                        apiRequest('getEquipamentos', { condominioId: condo.id }).then(r => {
+                            condo.equipments = r.success ? r.equipamentos : [];
+                        }).catch(err => {
+                            condo.equipments = [];
+                        })
+                    );
+                    promises.push(
+                        apiRequest('getOrdens', { condominioId: condo.id }).then(r => {
+                            condo.ordens = r.success ? r.ordens : [];
+                        }).catch(err => {
+                            condo.ordens = [];
+                        })
+                    );
+                });
+
+                await Promise.all(promises);
+
+                if (Object.keys(previousOSState).length > 0) {
+                    const changes = detectOSChanges(newCondos);
+                    processNotifications(changes);
+                }
+
+                saveOSState(newCondos);
+                condos = newCondos;
+                lastSyncTime = new Date();
+                
+                refreshCurrentScreen();
+                
+            } catch (error) {
+                console.error('❌ Erro na sincronização:', error);
+            }
+        }
+
+        function refreshCurrentScreen() {
+            const activeScreen = document.querySelector('.screen.active');
+            if (!activeScreen) return;
+            
+            const screenId = activeScreen.id;
+            
+            switch(screenId) {
+                case 'dashboard-screen':
+                    loadDashboard();
+                    break;
+                case 'condos-screen':
+                    loadCondos();
+                    break;
+                case 'tecnicos-screen':
+                    loadTecnicos();
+                    break;
+                case 'equipments-screen':
+                    loadEquipments();
+                    break;
+                case 'os-list-screen':
+                    loadOSList();
+                    break;
+                case 'tecnico-menu-screen':
+                    loadTecnicoOS();
+                    break;
+            }
+        }
+
+        function startAutoSync() {
+            if (currentUser) {
+                syncData();
+            }
+            
+            syncInterval = setInterval(() => {
+                if (currentUser) {
+                    syncData();
+                }
+            }, 30000); // 30 segundos
+            
+            console.log('✅ Sincronização automática ativada (30s)');
+        }
+
+        function stopAutoSync() {
+            if (syncInterval) {
+                clearInterval(syncInterval);
+                syncInterval = null;
+            }
+        }
+
+        // LOGIN
+        document.getElementById('login-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            showLoading();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            try {
+                const loginResult = await apiRequest('login', { username, password });
+
+                if (!loginResult.success) {
+                    hideLoading();
+                    showFeedback(document.getElementById('login-feedback'), loginResult.error || 'Erro ao fazer login', 'error');
+                    return;
+                }
+
+                currentUser = loginResult.user;
+
+                const [usuariosResult, condosResult] = await Promise.all([
+                    apiRequest('getUsuarios'),
+                    apiRequest('getCondominios')
+                ]);
+
+                usuarios = usuariosResult.success ? usuariosResult.usuarios : [];
+                condos = condosResult.success ? condosResult.condominios : [];
+
+                const promises = [];
+                condos.forEach(condo => {
+                    promises.push(
+                        apiRequest('getEquipamentos', { condominioId: condo.id }).then(r => {
+                            condo.equipments = r.success ? r.equipamentos : [];
+                        }).catch(() => { condo.equipments = []; })
+                    );
+                    promises.push(
+                        apiRequest('getOrdens', { condominioId: condo.id }).then(r => {
+                            condo.ordens = r.success ? r.ordens : [];
+                        }).catch(() => { condo.ordens = []; })
+                    );
+                });
+
+                await Promise.all(promises);
+
+                await registerServiceWorker();
+                await requestNotificationPermission();
+                initNotificationSound();
+                
+                saveOSState(condos);
+                startAutoSync();
+
+                hideLoading();
+
+                if (currentUser.role === 'admin') {
+                    showScreen('admin-menu-screen');
+                } else {
+                    showScreen('tecnico-menu-screen');
+                }
+            } catch (error) {
+                hideLoading();
+                console.error('❌ Erro no login:', error);
+                showFeedback(document.getElementById('login-feedback'), error.message || 'Erro de conexão', 'error');
+            }
+        });
+
+        // DASHBOARD
+        function loadDashboard() {
+            const allOS = getAllOS();
+            const tecnicos = getTecnicos();
+            let totalEquip = 0;
+            
+            condos.forEach(c => {
+                if (c.equipments) totalEquip += c.equipments.length;
+            });
+
+            const statsHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${condos.length}</div>
+                    <div class="stat-label">Condomínios</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${tecnicos.length}</div>
+                    <div class="stat-label">Técnicos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${totalEquip}</div>
+                    <div class="stat-label">Equipamentos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${allOS.filter(os => os.status === 'pendente').length}</div>
+                    <div class="stat-label">OS Pendentes</div>
+                </div>
+            `;
+
+            document.getElementById('stats-grid').innerHTML = statsHTML;
+
+            const osPendentes = allOS.filter(os => os.status === 'pendente').slice(0, 5);
+            const pendenteHTML = osPendentes.length ? osPendentes.map(os => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${os.numero}</div>
+                        <span class="badge ${os.tipo}">${os.tipo}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>${os.condominioNome}</strong></p>
+                        <p>${os.equipamentoNome}</p>
+                        <p>Técnico: ${os.tecnicoNome}</p>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><span class="material-icons">assignment</span><div class="empty-state-text">Nenhuma OS pendente</div></div>';
+
+            document.getElementById('dashboard-os-pendentes').innerHTML = pendenteHTML;
+        }
+
+        // CONDOMINIOS
+        function loadCondos() {
+            const html = condos.length ? condos.map(condo => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${condo.name}</div>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Endereço:</strong> ${condo.address || 'Não informado'}</p>
+                        <p><strong>Telefone:</strong> ${condo.phone || 'Não informado'}</p>
+                        <p><strong>Equipamentos:</strong> ${(condo.equipments || []).length}</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-delete" onclick="deleteCondo('${condo.id}')">Excluir</button>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><span class="material-icons">apartment</span><div class="empty-state-text">Nenhum condomínio cadastrado</div></div>';
+
+            document.getElementById('condos-list').innerHTML = html;
+        }
+
+        document.getElementById('add-condo-form').addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const newCondo = {
+                id: Date.now().toString(),
+                name: document.getElementById('condo-name').value.trim(),
+                address: document.getElementById('condo-address').value.trim(),
+                phone: document.getElementById('condo-phone').value.trim()
+            };
+
+            try {
+                showLoading();
+                const result = await apiPost('addCondominio', { condominio: newCondo });
+                hideLoading();
+
+                if (result.success) {
+                    condos.push({ ...newCondo, equipments: [], ordens: [] });
+                    showFeedback(document.getElementById('condo-feedback'), 'Condomínio adicionado!', 'success');
+                    setTimeout(() => {
+                        closeModal('add-condo-modal');
+                        loadCondos();
+                        document.getElementById('add-condo-form').reset();
+                    }, 1000);
+                } else {
+                    showFeedback(document.getElementById('condo-feedback'), result.error || 'Erro ao salvar', 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showFeedback(document.getElementById('condo-feedback'), error.message, 'error');
+            }
+        });
+
+        async function deleteCondo(id) {
+            if (!confirm('Excluir este condomínio?')) return;
+
+            try {
+                showLoading();
+                const result = await apiPost('deleteCondominio', { condominioId: id });
+                hideLoading();
+
+                if (result.success) {
+                    condos = condos.filter(c => c.id !== id);
+                    loadCondos();
+                    alert('Condomínio excluído!');
+                } else {
+                    alert('Erro: ' + (result.error || 'Erro desconhecido'));
+                }
+            } catch (error) {
+                hideLoading();
+                alert('Erro: ' + error.message);
+            }
+        }
+
+        // TECNICOS
+        function loadTecnicos() {
+            const tecnicos = getTecnicos();
+            const html = tecnicos.length ? tecnicos.map(tec => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${tec.nome}</div>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Email:</strong> ${tec.email}</p>
+                        <p><strong>Telefone:</strong> ${tec.telefone || 'Não informado'}</p>
+                        <p><strong>Login:</strong> ${tec.username}</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-delete" onclick="deleteTecnico('${tec.id}')">Excluir</button>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><span class="material-icons">engineering</span><div class="empty-state-text">Nenhum técnico cadastrado</div></div>';
+
+            document.getElementById('tecnicos-list').innerHTML = html;
+        }
+
+        document.getElementById('add-tecnico-form').addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const tecnicoData = {
+                id: Date.now().toString(),
+                nome: document.getElementById('tecnico-nome').value.trim(),
+                email: document.getElementById('tecnico-email').value.trim(),
+                telefone: document.getElementById('tecnico-telefone').value.trim(),
+                username: document.getElementById('tecnico-username').value.trim(),
+                password: document.getElementById('tecnico-password').value,
+                role: 'tecnico',
+                ativo: true
+            };
+
+            try {
+                showLoading();
+                const result = await apiPost('addUsuario', { usuario: tecnicoData });
+                hideLoading();
+
+                if (result.success) {
+                    usuarios.push(tecnicoData);
+                    showFeedback(document.getElementById('tecnico-feedback'), 'Técnico adicionado!', 'success');
+                    setTimeout(() => {
+                        closeModal('add-tecnico-modal');
+                        loadTecnicos();
+                        document.getElementById('add-tecnico-form').reset();
+                    }, 1000);
+                } else {
+                    showFeedback(document.getElementById('tecnico-feedback'), result.error || 'Erro ao salvar', 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showFeedback(document.getElementById('tecnico-feedback'), error.message, 'error');
+            }
+        });
+
+        async function deleteTecnico(id) {
+            if (!confirm('Excluir este técnico?')) return;
+
+            try {
+                showLoading();
+                const result = await apiPost('deleteUsuario', { usuarioId: id });
+                hideLoading();
+
+                if (result.success) {
+                    usuarios = usuarios.filter(u => u.id !== id);
+                    loadTecnicos();
+                    alert('Técnico excluído!');
+                } else {
+                    alert('Erro: ' + (result.error || 'Erro desconhecido'));
+                }
+            } catch (error) {
+                hideLoading();
+                alert('Erro: ' + error.message);
+            }
+        }
+
+        // EQUIPAMENTOS
+        function loadCondosForEquipment() {
+            const select = document.getElementById('equipment-condominio');
+            select.innerHTML = '<option value="">Selecione...</option>';
+            condos.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.name;
+                select.appendChild(opt);
+            });
+        }
+
+        function loadEquipments() {
+            const filterCondo = document.getElementById('filter-equip-condo').value;
+
+            const select = document.getElementById('filter-equip-condo');
+            select.innerHTML = '<option value="">Todos</option>';
+            condos.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.name;
+                if (c.id === filterCondo) opt.selected = true;
+                select.appendChild(opt);
+            });
+
+            let allEquip = [];
+            condos.forEach(condo => {
+                if (condo.equipments && Array.isArray(condo.equipments)) {
+                    condo.equipments.forEach(eq => {
+                        allEquip.push({ ...eq, condominioNome: condo.name, condominioId: condo.id });
+                    });
+                }
+            });
+
+            if (filterCondo) {
+                allEquip = allEquip.filter(e => e.condominioId === filterCondo);
+            }
+
+            const html = allEquip.length ? allEquip.map(eq => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${eq.name}</div>
+                        <span class="badge info-blue">${eq.type}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Condomínio:</strong> ${eq.condominioNome}</p>
+                        <p><strong>Localização:</strong> ${eq.location}</p>
+                        ${eq.model ? `<p><strong>Modelo:</strong> ${eq.model}</p>` : ''}
+                        ${eq.serialNumber ? `<p><strong>N/S:</strong> ${eq.serialNumber}</p>` : ''}
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-delete" onclick="deleteEquipment('${eq.id}', '${eq.condominioId}')">Excluir</button>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><span class="material-icons">construction</span><div class="empty-state-text">Nenhum equipamento</div></div>';
+
+            document.getElementById('equipments-list').innerHTML = html;
+        }
+
+        document.getElementById('add-equipment-form').addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const condoId = document.getElementById('equipment-condominio').value;
+            const condo = condos.find(c => c.id === condoId);
+
+            if (!condo) {
+                showFeedback(document.getElementById('equipment-feedback'), 'Condomínio não encontrado', 'error');
+                return;
+            }
+
+            const equipData = {
+                id: Date.now().toString(),
+                condominioId: condoId,
+                condominioNome: condo.name,
+                name: document.getElementById('equipment-name').value.trim(),
+                type: document.getElementById('equipment-type').value,
+                location: document.getElementById('equipment-location').value.trim(),
+                model: document.getElementById('equipment-model').value.trim(),
+                serialNumber: document.getElementById('equipment-serial').value.trim()
+            };
+
+            try {
+                showLoading();
+                const result = await apiPost('addEquipamento', { equipamento: equipData });
+                hideLoading();
+
+                if (result.success) {
+                    if (!condo.equipments) condo.equipments = [];
+                    condo.equipments.push(equipData);
+                    showFeedback(document.getElementById('equipment-feedback'), 'Equipamento cadastrado!', 'success');
+                    setTimeout(() => {
+                        closeModal('add-equipment-modal');
+                        loadEquipments();
+                        document.getElementById('add-equipment-form').reset();
+                    }, 1000);
+                } else {
+                    showFeedback(document.getElementById('equipment-feedback'), result.error || 'Erro ao salvar', 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showFeedback(document.getElementById('equipment-feedback'), error.message, 'error');
+            }
+        });
+
+        async function deleteEquipment(equipId, condoId) {
+            if (!confirm('Excluir este equipamento?')) return;
+
+            try {
+                showLoading();
+                const result = await apiPost('deleteEquipamento', { equipamentoId: equipId });
+                hideLoading();
+
+                if (result.success) {
+                    const condo = condos.find(c => c.id === condoId);
+                    if (condo && condo.equipments) {
+                        condo.equipments = condo.equipments.filter(e => e.id !== equipId);
+                    }
+                    loadEquipments();
+                    alert('Equipamento excluído!');
+                } else {
+                    alert('Erro: ' + (result.error || 'desconhecido'));
+                }
+            } catch (error) {
+                hideLoading();
+                alert('Erro: ' + error.message);
+            }
+        }
+
+        // ORDENS DE SERVIÇO ADMIN
+        function loadCondosForOS() {
+            const condoSelect = document.getElementById('os-condominio');
+            condoSelect.innerHTML = '<option value="">Selecione...</option>';
+            condos.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.name;
+                condoSelect.appendChild(opt);
+            });
+        }
+
+        function loadTecnicosForOS() {
+            const tecSelect = document.getElementById('os-tecnico');
+            tecSelect.innerHTML = '<option value="">Selecione...</option>';
+            getTecnicos().forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t.id;
+                opt.textContent = t.nome;
+                tecSelect.appendChild(opt);
+            });
+        }
+
+        function loadEquipamentosOS() {
+            const condoId = document.getElementById('os-condominio').value;
+            const equipSelect = document.getElementById('os-equipamento');
+            equipSelect.innerHTML = '<option value="">Primeiro selecione um condomínio...</option>';
+
+            if (!condoId) return;
+
+            const condo = condos.find(c => c.id === condoId);
+            if (!condo || !condo.equipments || !condo.equipments.length) {
+                equipSelect.innerHTML = '<option value="">Nenhum equipamento</option>';
+                return;
+            }
+
+            equipSelect.innerHTML = '<option value="">Selecione...</option>';
+            condo.equipments.forEach(eq => {
+                const opt = document.createElement('option');
+                opt.value = eq.id;
+                opt.textContent = `${eq.name} (${eq.type})`;
+                equipSelect.appendChild(opt);
+            });
+        }
+
+        function loadOSList() {
+            const filter = document.getElementById('filter-os-status').value;
+            let allOS = getAllOS();
+
+            if (filter) {
+                allOS = allOS.filter(os => os.status === filter);
+            }
+
+            const html = allOS.length ? allOS.map(os => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${os.numero}</div>
+                        <span class="badge ${os.status}">${formatStatus(os.status)}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>${os.condominioNome}</strong></p>
+                        <p>${os.equipamentoNome}</p>
+                        <p>Técnico: ${os.tecnicoNome}</p>
+                        <p>
+                            <span class="badge ${os.tipo}">${os.tipo}</span>
+                            <span class="badge ${os.prioridade}">${os.prioridade}</span>
+                        </p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-view" onclick="viewOSDetail('${os.id}')">Ver Detalhes</button>
+                        <button class="btn-delete" onclick="deleteOS('${os.id}', '${os.condominioId}')">Excluir</button>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><span class="material-icons">assignment</span><div class="empty-state-text">Nenhuma OS</div></div>';
+
+            document.getElementById('os-list').innerHTML = html;
+        }
+
+        document.getElementById('create-os-form').addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const condoId = document.getElementById('os-condominio').value;
+            const equipId = document.getElementById('os-equipamento').value;
+            const tecnicoId = document.getElementById('os-tecnico').value;
+
+            const condo = condos.find(c => c.id === condoId);
+            if (!condo) {
+                showFeedback(document.getElementById('create-os-feedback'), 'Condomínio não encontrado', 'error');
+                return;
+            }
+
+            const equip = condo.equipments ? condo.equipments.find(e => e.id === equipId) : null;
+            if (!equip) {
+                showFeedback(document.getElementById('create-os-feedback'), 'Equipamento não encontrado', 'error');
+                return;
+            }
+
+            const tecnico = usuarios.find(u => u.id === tecnicoId);
+            if (!tecnico) {
+                showFeedback(document.getElementById('create-os-feedback'), 'Técnico não encontrado', 'error');
+                return;
+            }
+
+            const novaOS = {
+                id: Date.now().toString(),
+                numero: `OS-${new Date().getFullYear()}-${String(getAllOS().length + 1).padStart(4, '0')}`,
+                condominioId: condoId,
+                condominioNome: condo.name,
+                equipamentoId: equipId,
+                equipamentoNome: equip.name,
+                tipo: document.getElementById('os-tipo').value,
+                prioridade: document.getElementById('os-prioridade').value,
+                status: 'pendente',
+                tecnicoId: tecnicoId,
+                tecnicoNome: tecnico.nome,
+                descricao: document.getElementById('os-descricao').value.trim(),
+                dataCriacao: new Date().toLocaleString('pt-BR'),
+                dataInicio: '',
+                dataConclusao: '',
+                checklist: gerarChecklistPadrao(equip.type || 'geral'),
+                pecasUtilizadas: [],
+                fotos: [],
+                assinaturaTecnico: '',
+                observacoes: ''
+            };
+
+            try {
+                showLoading();
+                const result = await apiPost('addOrdem', { ordem: novaOS });
+                hideLoading();
+
+                if (result.success) {
+                    if (!condo.ordens) condo.ordens = [];
+                    condo.ordens.push(novaOS);
+                    showFeedback(document.getElementById('create-os-feedback'), 'OS criada!', 'success');
+                    setTimeout(() => {
+                        closeModal('create-os-modal');
+                        loadOSList();
+                        document.getElementById('create-os-form').reset();
+                    }, 1000);
+                } else {
+                    showFeedback(document.getElementById('create-os-feedback'), result.error || 'Erro ao criar', 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showFeedback(document.getElementById('create-os-feedback'), error.message, 'error');
+            }
+        });
+
+        async function deleteOS(osId, condoId) {
+            if (!confirm('Excluir esta OS?')) return;
+
+            try {
+                showLoading();
+                const result = await apiPost('deleteOrdem', { ordemId: osId });
+                hideLoading();
+
+                if (result.success) {
+                    const condo = condos.find(c => c.id === condoId);
+                    if (condo && condo.ordens) {
+                        condo.ordens = condo.ordens.filter(o => o.id !== osId);
+                    }
+                    loadOSList();
+                    alert('OS excluída!');
+                } else {
+                    alert('Erro: ' + (result.error || 'desconhecido'));
+                }
+            } catch (error) {
+                hideLoading();
+                alert('Erro: ' + error.message);
+            }
+        }
+
+        function viewOSDetail(osId) {
+            const result = getOSById(osId);
+            if (!result) return;
+            
+            const { os } = result;
+            currentOS = result;
+
+            const detailHTML = `
+                <div style="padding: 10px 0;">
+                    <p><strong>Número:</strong> ${os.numero}</p>
+                    <p><strong>Condomínio:</strong> ${os.condominioNome}</p>
+                    <p><strong>Equipamento:</strong> ${os.equipamentoNome}</p>
+                    <p><strong>Status:</strong> <span class="badge ${os.status}">${formatStatus(os.status)}</span></p>
+                    <p><strong>Tipo:</strong> ${os.tipo}</p>
+                    <p><strong>Prioridade:</strong> ${os.prioridade}</p>
+                    <p><strong>Técnico:</strong> ${os.tecnicoNome}</p>
+                    <p><strong>Descrição:</strong> ${os.descricao}</p>
+                    <p><strong>Data Criação:</strong> ${os.dataCriacao}</p>
+                    <p><strong>Data Início:</strong> ${os.dataInicio || '-'}</p>
+                    <p><strong>Data Conclusão:</strong> ${os.dataConclusao || '-'}</p>
+                    
+                    <h3 style="margin-top: 20px; margin-bottom: 10px;">Checklist:</h3>
+                    ${os.checklist && os.checklist.length ? os.checklist.map(c => `
+                        <p style="margin-bottom: 5px;">- ${c.item} ${c.ok ? '✅' : '❌'}</p>
+                    `).join('') : '<p>Sem checklist</p>'}
+                    
+                    <h3 style="margin-top: 20px; margin-bottom: 10px;">Peças:</h3>
+                    ${os.pecasUtilizadas && os.pecasUtilizadas.length ? os.pecasUtilizadas.map(p => `
+                        <p style="margin-bottom: 5px;">- ${p.nome} (${p.quantidade}) - R$ ${p.custo.toFixed(2)}</p>
+                    `).join('') : '<p>Nenhuma</p>'}
+                    
+                    <h3 style="margin-top: 20px; margin-bottom: 10px;">Observações:</h3>
+                    <p>${os.observacoes || '-'}</p>
+
+                    <div class="form-group" style="margin-top:20px;">
+                        <label>Alterar Status</label>
+                        <select id="os-status-admin">
+                            <option value="pendente" ${os.status==='pendente'?'selected':''}>Pendente</option>
+                            <option value="em_andamento" ${os.status==='em_andamento'?'selected':''}>Em Andamento</option>
+                            <option value="concluida" ${os.status==='concluida'?'selected':''}>Concluída</option>
+                        </select>
+                    </div>
+                    <button class="button secondary" onclick="salvarStatusOS('${os.id}')">Salvar Status</button>
+                    <button class="button" onclick="downloadOSPDF()" style="margin-top:10px;">Download PDF</button>
+                </div>
+            `;
+
+            document.getElementById('os-detail-content').innerHTML = detailHTML;
+            openModal('os-detail-modal');
+        }
+
+        // CORREÇÃO: Usar apiPost ao invés de apiPostJSON
+        window.salvarStatusOS = async function(osId) {
+            const r = getOSById(osId);
+            if (!r) return;
+            const { os, condo } = r;
+
+            const statusAtual = os.status;
+            const novoStatus = document.getElementById('os-status-admin').value;
+
+            // Atualiza o status
+            os.status = novoStatus;
+
+            // Lógica de atualização de datas baseada no novo status
+            if (novoStatus === 'em_andamento') {
+                if (!os.dataInicio) {
+                    os.dataInicio = new Date().toLocaleString('pt-BR');
+                }
+                // Limpa data de conclusão se estava concluída e voltou para em andamento
+                if (statusAtual === 'concluida') {
+                    os.dataConclusao = '';
+                }
+            }
+
+            if (novoStatus === 'concluida') {
+                if (!os.dataInicio) {
+                    os.dataInicio = new Date().toLocaleString('pt-BR');
+                }
+                if (!os.dataConclusao) {
+                    os.dataConclusao = new Date().toLocaleString('pt-BR');
+                }
+            }
+
+            if (novoStatus === 'pendente') {
+                // Quando volta para pendente, limpa as datas
+                os.dataInicio = '';
+                os.dataConclusao = '';
+            }
+
+            try {
+                showLoading();
+                
+                // CORREÇÃO: Usar apiPost (JSONP) ao invés de apiPostJSON (fetch)
+                const result = await apiPost('updateOrdem', { ordem: os });
+                
+                hideLoading();
+
+                if (!result.success) {
+                    alert('Erro ao atualizar status: ' + (result.error || 'Erro desconhecido'));
+                    // Reverte o status em caso de erro
+                    os.status = statusAtual;
+                    return;
+                }
+
+                // Atualiza no array do condomínio
+                if (condo && Array.isArray(condo.ordens)) {
+                    const idx = condo.ordens.findIndex(o => o.id === os.id);
+                    if (idx >= 0) condo.ordens[idx] = { ...os };
+                }
+
+                // Atualiza o previousOSState para refletir a mudança
+                previousOSState[os.id] = {
+                    id: os.id,
+                    status: os.status,
+                    numero: os.numero
+                };
+
+                closeModal('os-detail-modal');
+                loadOSList();
+
+                showNotificationPopup(
+                    '✅ Status atualizado',
+                    `OS ${os.numero}\nStatus: ${formatStatus(statusAtual)} → ${formatStatus(novoStatus)}`,
+                    'success',
+                    os.id
+                );
+
+                // Sincroniza os dados
+                await syncData();
+
+            } catch (e) {
+                hideLoading();
+                console.error('Erro ao salvar status:', e);
+                alert('Erro de conexão ao salvar status: ' + e.message);
+                // Reverte o status em caso de erro
+                os.status = statusAtual;
+            }
+        };
+
+        // TÉCNICO
+        function loadTecnicoOS() {
+            if (!currentUser) return;
+
+            const filter = document.getElementById('filter-tecnico-os').value;
+            let allOS = getAllOS();
+            allOS = allOS.filter(os => os.tecnicoId === currentUser.id);
+
+            if (filter) {
+                allOS = allOS.filter(os => os.status === filter);
+            }
+
+            const html = allOS.length ? allOS.map(os => `
+                <div class="card" onclick="iniciarOS('${os.id}')" style="cursor: pointer;">
+                    <div class="card-header">
+                        <div class="card-title">${os.numero}</div>
+                        <span class="badge ${os.status}">${formatStatus(os.status)}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>${os.condominioNome}</strong></p>
+                        <p>${os.equipamentoNome}</p>
+                        <p>
+                            <span class="badge ${os.tipo}">${os.tipo}</span>
+                            <span class="badge ${os.prioridade}">${os.prioridade}</span>
+                        </p>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><span class="material-icons">assignment</span><div class="empty-state-text">Nenhuma OS</div></div>';
+
+            document.getElementById('tecnico-os-list').innerHTML = html;
+        }
+
+        async function iniciarOS(osId) {
+            const result = getOSById(osId);
+            if (!result) return;
+
+            const { os, condo } = result;
+            currentOS = { os, condo };
+
+            // Automaticamente muda de "pendente" para "em_andamento" quando o técnico inicia
+            if (os.status === 'pendente') {
+                os.status = 'em_andamento';
+                os.dataInicio = new Date().toLocaleString('pt-BR');
+                
+                try {
+                    showLoading();
+                    await apiPost('updateOrdem', { ordem: os });
+                    
+                    // Atualiza o array local do condomínio
+                    if (condo && Array.isArray(condo.ordens)) {
+                        const idx = condo.ordens.findIndex(o => o.id === os.id);
+                        if (idx >= 0) condo.ordens[idx] = { ...os };
+                    }
+
+                    // Atualiza previousOSState
+                    previousOSState[os.id] = {
+                        id: os.id,
+                        status: os.status,
+                        numero: os.numero
+                    };
+
+                    hideLoading();
+                } catch (error) {
+                    hideLoading();
+                    console.error('Erro ao atualizar status inicial:', error);
+                }
+            }
+
+            loadExecutarOS(os, condo);
+            showScreen('executar-os-screen');
+        }
+
+        function loadExecutarOS(os, condo) {
+            const infoHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${os.numero}</div>
+                        <span class="badge ${os.tipo}">${os.tipo}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>${os.condominioNome}</strong></p>
+                        <p><strong>Equipamento:</strong> ${os.equipamentoNome}</p>
+                        <p><strong>Descrição:</strong> ${os.descricao}</p>
+                        <p><strong>Prioridade:</strong> <span class="badge ${os.prioridade}">${os.prioridade}</span></p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('os-info-card').innerHTML = infoHTML;
+
+            const checklistHTML = os.checklist.map((item, idx) => `
+                <div class="checklist-item">
+                    <input type="checkbox" id="check-${idx}" onchange="updateChecklist(${idx}, this.checked)" ${item.ok ? 'checked' : ''}>
+                    <label for="check-${idx}">${item.item}</label>
+                </div>
+            `).join('');
+            document.getElementById('os-checklist').innerHTML = checklistHTML;
+
+            osPhotos = os.fotos || [];
+            tempPecas = os.pecasUtilizadas || [];
+            updatePhotosPreview();
+            loadPecasList();
+            setupOSSignature();
+        }
+
+        function updateChecklist(idx, checked) {
+            if (currentOS && currentOS.os) {
+                currentOS.os.checklist[idx].ok = checked;
+            }
+        }
+
+        // FOTOS
+        document.getElementById('os-photo-input').addEventListener('change', e => {
+            const files = e.target.files;
+            for (let file of files) {
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    osPhotos.push(ev.target.result);
+                    updatePhotosPreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function updatePhotosPreview() {
+            const html = osPhotos.map((photo, idx) => `
+                <div style="position: relative; display: inline-block; margin: 5px;">
+                    <img src="${photo}" class="photo-preview" style="max-width: 150px; max-height: 150px;">
+                    <button type="button" onclick="removePhoto(${idx})" style="position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;">×</button>
+                </div>
+            `).join('');
+            
+            document.getElementById('os-photos-preview').innerHTML = html;
+            document.getElementById('os-photo-placeholder').style.display = osPhotos.length ? 'none' : 'block';
+        }
+
+        function removePhoto(idx) {
+            osPhotos.splice(idx, 1);
+            updatePhotosPreview();
+        }
+
+        // PEÇAS
+        document.getElementById('add-peca-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const peca = {
+                nome: document.getElementById('peca-nome').value.trim(),
+                quantidade: document.getElementById('peca-quantidade').value.trim(),
+                custo: parseFloat(document.getElementById('peca-custo').value) || 0
+            };
+            tempPecas.push(peca);
+            loadPecasList();
+            closeModal('add-peca-modal');
+            document.getElementById('add-peca-form').reset();
+        });
+
+        function loadPecasList() {
+            const html = tempPecas.length ? tempPecas.map((p, idx) => `
+                <div class="peca-item">
+                    <div class="peca-info">
+                        <div class="peca-name">${p.nome}</div>
+                        <div class="peca-details">${p.quantidade} - R$ ${p.custo.toFixed(2)}</div>
+                    </div>
+                    <button type="button" class="peca-remove" onclick="removePeca(${idx})">×</button>
+                </div>
+            `).join('') : '<div class="empty-state-text">Nenhuma peça</div>';
+            document.getElementById('pecas-list').innerHTML = html;
+        }
+
+        function removePeca(idx) {
+            tempPecas.splice(idx, 1);
+            loadPecasList();
+        }
+
+        // ASSINATURA
+        const osSignaturePadCanvas = document.getElementById('os-signature-pad');
+        const osSignaturePadCtx = osSignaturePadCanvas.getContext('2d');
+        let isOSDrawing = false, osLastX = 0, osLastY = 0;
+
+        function setupOSSignature() {
+            const w = parseFloat(getComputedStyle(osSignaturePadCanvas).width);
+            const h = parseFloat(getComputedStyle(osSignaturePadCanvas).height);
+            osSignaturePadCanvas.width = w * dpi;
+            osSignaturePadCanvas.height = h * dpi;
+            osSignaturePadCtx.scale(dpi, dpi);
+            osSignaturePadCtx.lineWidth = 2;
+            osSignaturePadCtx.lineCap = 'round';
+            osSignaturePadCtx.strokeStyle = 'black';
+            clearOSSignature();
+
+            osSignaturePadCanvas.addEventListener('mousedown', e => {
+                const r = osSignaturePadCanvas.getBoundingClientRect();
+                isOSDrawing = true;
+                hasOSSignature = true;
+                osLastX = e.clientX - r.left;
+                osLastY = e.clientY - r.top;
+            });
+
+            osSignaturePadCanvas.addEventListener('mousemove', e => {
+                if (!isOSDrawing) return;
+                const r = osSignaturePadCanvas.getBoundingClientRect();
+                const x = e.clientX - r.left;
+                const y = e.clientY - r.top;
+                osSignaturePadCtx.beginPath();
+                osSignaturePadCtx.moveTo(osLastX, osLastY);
+                osSignaturePadCtx.lineTo(x, y);
+                osSignaturePadCtx.stroke();
+                osLastX = x;
+                osLastY = y;
+            });
+
+            osSignaturePadCanvas.addEventListener('mouseup', () => (isOSDrawing = false));
+            
+            osSignaturePadCanvas.addEventListener('touchstart', e => {
+                e.preventDefault();
+                const r = osSignaturePadCanvas.getBoundingClientRect();
+                isOSDrawing = true;
+                hasOSSignature = true;
+                osLastX = e.touches[0].clientX - r.left;
+                osLastY = e.touches[0].clientY - r.top;
+            });
+
+            osSignaturePadCanvas.addEventListener('touchmove', e => {
+                e.preventDefault();
+                if (!isOSDrawing) return;
+                const r = osSignaturePadCanvas.getBoundingClientRect();
+                const x = e.touches[0].clientX - r.left;
+                const y = e.touches[0].clientY - r.top;
+                osSignaturePadCtx.beginPath();
+                osSignaturePadCtx.moveTo(osLastX, osLastY);
+                osSignaturePadCtx.lineTo(x, y);
+                osSignaturePadCtx.stroke();
+                osLastX = x;
+                osLastY = y;
+            });
+
+            osSignaturePadCanvas.addEventListener('touchend', () => (isOSDrawing = false));
+        }
+
+        function clearOSSignature() {
+            osSignaturePadCtx.fillStyle = 'white';
+            osSignaturePadCtx.fillRect(0, 0, osSignaturePadCanvas.width, osSignaturePadCanvas.height);
+            hasOSSignature = false;
+        }
+
+        // CONCLUIR OS - COM ESCOLHA DE STATUS E COMPACTAÇÃO
+        document.getElementById('executar-os-form').addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const statusFinal = document.getElementById('os-status-final').value;
+
+            if (statusFinal === 'concluida' && !hasOSSignature) {
+                showFeedback(document.getElementById('os-feedback'), 'Assinatura obrigatória para concluir!', 'error');
+                return;
+            }
+
+            if (!currentOS) return;
+            const { os, condo } = currentOS;
+
+            const fotosCompactadas = await compactAllImages(osPhotos);
+            const assinaturaCompacta = statusFinal === 'concluida' ? await compactSignature(osSignaturePadCanvas) : '';
+
+            os.fotos = fotosCompactadas;
+            os.pecasUtilizadas = tempPecas;
+            os.observacoes = document.getElementById('os-observacoes').value.trim();
+            os.assinaturaTecnico = assinaturaCompacta;
+            os.status = statusFinal;
+
+            if (statusFinal === 'concluida') {
+                if (!os.dataInicio) {
+                    os.dataInicio = new Date().toLocaleString('pt-BR');
+                }
+                os.dataConclusao = new Date().toLocaleString('pt-BR');
+            } else if (statusFinal === 'em_andamento') {
+                if (!os.dataInicio) {
+                    os.dataInicio = new Date().toLocaleString('pt-BR');
+                }
+                os.dataConclusao = '';
+            }
+
+            try {
+                showLoading();
+
+                // CORREÇÃO: Usar apiPost (JSONP) para payloads grandes também
+                // Se ainda der timeout com dados grandes, tente enviar sem fotos/assinatura
+                let result = await apiPost('updateOrdem', { ordem: os });
+
+                if (!result.success) {
+                    console.warn('Tentativa com fotos falhou, tentando sem...');
+                    const backupFotos = os.fotos;
+                    const backupAss = os.assinaturaTecnico;
+                    os.fotos = [];
+                    os.assinaturaTecnico = '';
+                    result = await apiPost('updateOrdem', { ordem: os });
+                    os.fotos = backupFotos;
+                    os.assinaturaTecnico = backupAss;
+                }
+
+                hideLoading();
+
+                if (result.success) {
+                    // Atualiza array local do condomínio
+                    if (condo && Array.isArray(condo.ordens)) {
+                        const idx = condo.ordens.findIndex(o => o.id === os.id);
+                        if (idx >= 0) condo.ordens[idx] = { ...os };
+                    }
+
+                    // Atualiza previousOSState
+                    previousOSState[os.id] = {
+                        id: os.id,
+                        status: os.status,
+                        numero: os.numero
+                    };
+
+                    showFeedback(
+                        document.getElementById('os-feedback'),
+                        statusFinal === 'concluida' ? 'OS concluída com sucesso!' : 'OS salva em andamento!',
+                        'success'
+                    );
+
+                    setTimeout(() => {
+                        loadTecnicoOS();
+                        showScreen('tecnico-menu-screen');
+                        syncData();
+                    }, 1000);
+                } else {
+                    showFeedback(document.getElementById('os-feedback'), result.error || 'Erro ao atualizar', 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                console.error('Erro ao salvar OS:', error);
+                showFeedback(document.getElementById('os-feedback'), 'Erro de conexão: ' + error.message, 'error');
+            }
+        });
+
+        // RELATÓRIOS
+        async function downloadOSPDF() {
+            if (!currentOS) return;
+            const { os } = currentOS;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(18);
+            doc.text('Ordem de Serviço', 105, 20, { align: 'center' });
+            doc.setDrawColor(57, 255, 20);
+            doc.setLineWidth(2);
+            doc.line(20, 25, 190, 25);
+
+            let y = 35;
+            function line(label, value) {
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'bold');
+                doc.text(`${label}:`, 20, y);
+                doc.setFont('helvetica', 'normal');
+                doc.text(String(value), 70, y);
+                y += 7;
+            }
+
+            line('OS Nº', os.numero);
+            line('Status', formatStatus(os.status));
+            line('Tipo', os.tipo);
+            line('Condomínio', os.condominioNome);
+            line('Equipamento', os.equipamentoNome);
+            line('Técnico', os.tecnicoNome);
+            line('Data Criação', os.dataCriacao);
+            line('Data Conclusão', os.dataConclusao || '-');
+
+            doc.save(`${os.numero}.pdf`);
+        }
+
+        async function gerarRelatorioMensal() {
+            const mes = new Date().getMonth() + 1;
+            const ano = new Date().getFullYear();
+            const osDoMes = getAllOS().filter(os => {
+                try {
+                    const partes = os.dataCriacao.split(' ')[0].split('/');
+                    const dataOS = new Date(partes[2], partes[1] - 1, partes[0]);
+                    return dataOS.getMonth() + 1 === mes && dataOS.getFullYear() === ano;
+                } catch { return false; }
+            });
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(18);
+            doc.text(`Relatório Mensal - ${mes}/${ano}`, 105, 20, { align: 'center' });
+
+            let y = 40;
+            doc.setFontSize(12);
+            doc.text(`Total de OS: ${osDoMes.length}`, 20, y);
+            y += 10;
+            doc.text(`Concluídas: ${osDoMes.filter(os => os.status === 'concluida').length}`, 20, y);
+            y += 10;
+            doc.text(`Em Andamento: ${osDoMes.filter(os => os.status === 'em_andamento').length}`, 20, y);
+            y += 10;
+            doc.text(`Pendentes: ${osDoMes.filter(os => os.status === 'pendente').length}`, 20, y);
+
+            doc.save(`Relatorio_${mes}_${ano}.pdf`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ Zecure App Carregado');
+            console.log('🔔 Notificações: Ativas');
+            console.log('🔄 Sincronização: 30s');
+            showScreen('login-screen');
+        });
+    </script>
+</body>
+</html>
